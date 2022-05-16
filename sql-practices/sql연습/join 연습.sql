@@ -70,4 +70,4 @@ group by a.title
   having count(*) >= 100
 order by avg(b.salary) desc;  
 
--- 실습문제4: 현재 부서별로 현재 직책이 Engineer인 직원들의 대해서만 평균 급여를 구하세요.
+-- 실습문제4: 현재 부서별로 직책이 Engineer인 직원들의 대해서만 평균 급여를 구하세요.

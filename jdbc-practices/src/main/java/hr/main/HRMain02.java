@@ -24,5 +24,4 @@ public class HRMain02 {
 		
 		scanner.close();
 	}
-
 }

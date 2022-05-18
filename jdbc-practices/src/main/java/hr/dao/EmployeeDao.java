@@ -32,8 +32,8 @@ public class EmployeeDao {
 				"    from employees" +
 				"   where first_name like ?" +
 				"       or last_name like ?" +
-				" order by hire_date" +
-				"    limit 0, 100";  // limitaion for testing
+				" order by hire_date";
+			
 			pstmt = connection.prepareStatement(sql);
 			
 			//4. Parameter Mapping
@@ -99,15 +99,16 @@ public class EmployeeDao {
 			
 			//3. SQL 준비
 			String sql = 
-					"select a.emp_no," +
-					"       a.first_name," +
-					"       a.last_name," +
-					"       b.salary" +
-					"  from employees a, salaries b" +
-					" where a.emp_no = b.emp_no" +
-					"   and b.to_date = '9999-01-01'" +
-					"   and b.salary >= ?" +
-					"   and b.salary <= ?";
+					"   select a.emp_no," +
+					"          a.first_name," +
+					"          a.last_name," +
+					"          b.salary" +
+					"     from employees a, salaries b" +
+					"    where a.emp_no = b.emp_no" +
+					"      and b.to_date = '9999-01-01'" +
+					"      and b.salary >= ?" +
+					"      and b.salary <= ?" +
+					" order by b.salary desc";
 			pstmt = connection.prepareStatement(sql);
 			
 			//4. binding

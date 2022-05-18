@@ -1,6 +1,10 @@
 package hr.main;
 
+import java.util.List;
 import java.util.Scanner;
+
+import hr.dao.EmployeeDao;
+import hr.vo.EmployeeVo;
 
 public class HRMain02 {
 

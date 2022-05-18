@@ -84,12 +84,18 @@ public class EmployeeDao {
 	public List<EmployeeVo> findBySalary(int minSalary, int maxSalary) {
 		List<EmployeeVo> result = new ArrayList<>();
 		
-		Connection conn = null;
+		Connection connection = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			conn = getConnection();
+			//1. JDBC Driver 로딩 (JDBC Class 로딩: class loader)
+			Class.forName("org.mariadb.jdbc.Driver");
+			
+			//2. 연결하기
+			String url = "jdbc:mysql://192.168.10.55:3306/employees?charset=utf8";
+			connection = DriverManager.getConnection(url, "hr", "hr");
+
 			
 			//3. SQL 준비
 			String sql = 
@@ -102,7 +108,7 @@ public class EmployeeDao {
 					"   and b.to_date = '9999-01-01'" +
 					"   and b.salary >= ?" +
 					"   and b.salary <= ?";
-			pstmt = conn.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			
 			//4. binding
 			pstmt.setInt(1, minSalary);
@@ -124,6 +130,8 @@ public class EmployeeDao {
 				
 				result.add(vo);
 			}
+		} catch (ClassNotFoundException e) {
+			System.out.println("드라이버 로딩 실패:" + e);
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
@@ -135,8 +143,8 @@ public class EmployeeDao {
 				if(pstmt != null) {
 					pstmt.close();
 				}
-				if(conn != null) {
-					conn.close();
+				if(connection != null) {
+					connection.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

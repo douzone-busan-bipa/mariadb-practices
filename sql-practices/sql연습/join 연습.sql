@@ -71,3 +71,15 @@ group by a.title
 order by avg(b.salary) desc;  
 
 -- 실습문제4: 현재 부서별로 직책이 Engineer인 직원들의 대해서만 평균 급여를 구하세요.
+  select d.dept_name, avg(salary)
+    from dept_emp a, salaries b, titles c, departments d
+   where a.emp_no = b.emp_no
+     and b.emp_no = c.emp_no
+     and d.dept_no = a.dept_no
+     and a.to_date = '9999-01-01'
+     and b.to_date = '9999-01-01'
+     and c.to_date = '9999-01-01'
+     and c.title = 'Engineer'
+group by d.dept_name;    
+
+

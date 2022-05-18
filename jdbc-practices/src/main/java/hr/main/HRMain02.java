@@ -7,17 +7,18 @@ public class HRMain02 {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		
-		System.out.println("salary[min max]>");
+		System.out.print("salary[min max]>");
 		int minSalary = scanner.nextInt();
 		int maxSalary = scanner.nextInt();
 		
-		List<EmployeeVo> list = new EmployeeDao().findBySalary(minSalary, maxSalary);
+		EmployeeDao dao = new EmployeeDao();
+		List<EmployeeVo> result = dao.findBySalary(minSalary, maxSalary);
 		
-		// no:firstName:lastName:salary
-		// order 큰순
+		for(EmployeeVo vo : result) {
+			System.out.println(vo.getNo() + ":" + vo.getFirstName() + ":" + vo.getLastName() + ":" + vo.getSalary());
+		}
 		
 		scanner.close();
-
 	}
 
 }
